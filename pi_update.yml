@@ -1,0 +1,12 @@
+---
+- name: Update APT over RaspberryPi
+  hosts: raspberrypi
+  remote_user: pi
+  tasks:
+    - name: update APT
+      apt: update_cache=yes
+      become: true
+
+    - name: upgrade APT
+      apt: upgrade=yes
+      become: true

@@ -1,0 +1,5 @@
+---
+- hosts: raspberrypi
+  tasks:
+    - name: ping [ping -c 1 google.fr]
+      shell: ping -c 1 google.fr
