@@ -1,2 +1,7 @@
 interface={{ interface }}
 dhcp-range={{ ip_dhcp_low }},{{ ip_dhcp_high }},{{ netmask }},12h
+listen-address={{ip_server}} # Explicitly specify the address to listen on
+bind-interfaces      # Bind to the interface to make sure we aren't sending things elsewhere
+#server=8.8.8.8       # Forward DNS requests to Google DNS
+domain-needed        # Don't forward short names
+bogus-priv           # Never forward addresses in the non-routed address spaces.
