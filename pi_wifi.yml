@@ -53,6 +53,9 @@
         dest: /etc/network/interfaces
         backup: true
 
+    - name: networking service
+      service: name=networking enabled=yes state=restarted
+
     - name: dnsmasq service
       service: name=dnsmasq enabled=yes state=started
 
