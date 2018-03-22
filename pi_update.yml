@@ -1,12 +1,17 @@
 ---
-- name: Update APT over RaspberryPi
+- name: Update APT for RaspberryPi
   hosts: raspberrypi
   remote_user: pi
   tasks:
-    - name: update APT
-      apt: update_cache=yes
+    - name: update
+      apt: update_cache=no
       become: true
 
-    - name: upgrade APT
+    - name: upgrade
       apt: upgrade=yes
       become: true
+
+    - name: install list of packages
+      apt: name={{item}} state=installed
+      with_items:
+           - avahi-daemon
