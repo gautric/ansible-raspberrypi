@@ -1,17 +1,14 @@
 ---
 - name: update
   apt: update_cache=no
-  become: true
 
 - name: upgrade
   apt: upgrade=yes
-  become: true
 
 - name: install list of packages
   apt:
     pkg:
       - avahi-daemon
     state: present
-  become: yes
   notify:
     - restart avahi-daemon
