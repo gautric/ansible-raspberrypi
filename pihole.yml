@@ -1,0 +1,5 @@
+---
+- hosts: pihole
+  remote_user: pi
+  roles:
+    - pihole
