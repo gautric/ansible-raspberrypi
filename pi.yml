@@ -1,0 +1,5 @@
+---
+- hosts: raspberrypi
+  remote_user: pi
+  roles:
+    - update
