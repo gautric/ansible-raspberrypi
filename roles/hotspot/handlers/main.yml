@@ -1,0 +1,19 @@
+---
+- name: restart hostapd
+  service:
+    name: hostapd
+    state: restarted
+
+- name: restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+
+- name: restart networking
+  service:
+    name: networking
+    state: restarted
+
+- name: restart machine
+  reboot:
+    reboot_timeout: 60

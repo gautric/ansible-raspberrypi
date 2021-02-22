@@ -1,0 +1,47 @@
+---
+  
+- name: hostapd install
+  apt: name=hostapd state=present force=yes
+
+- name: dnsmasq install
+  apt: name=dnsmasq state=present force=yes
+
+- name: dnsmasq.conf
+  template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+    backup: true
+  notify:
+  - restart dnsmasq
+
+- name: hostapd.conf
+  template:
+    src: hostapd.conf.j2
+    dest: /etc/hostapd/hostapd.conf
+    backup: true
+  notify:
+  - restart hostapd
+
+- name: hostapd
+  template:
+    src: hostapd.j2
+    dest: /etc/default/hostapd
+    backup: true
+  notify:
+  - restart hostapd
+
+- name: networking
+  template:
+    src: interfaces.j2
+    dest: /etc/network/interfaces
+    backup: true
+  notify:
+  - restart networking
+
+- name: rc.local
+  template:
+    src: rc.local.j2
+    dest: /etc/rc.local
+    backup: true
+  notify:
+  - restart machine

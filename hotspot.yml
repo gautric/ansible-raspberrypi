@@ -1,0 +1,6 @@
+---
+- hosts: hotspot
+  remote_user: pi
+  roles:
+    - update
+    - hotspot
