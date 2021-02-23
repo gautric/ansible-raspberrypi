@@ -8,22 +8,25 @@
     vars_files:
       - vars_partitions.yml 
       - vars_queues.yml 
-    gather_facts: no
+    gather_facts: yes
     tasks:
-      - name: Creation du fichier Broker
+      - name: Creation du fichier Instancié
         ansible.builtin.template: 
-          src: ./varloop.j2 
-          dest: ./output.txt
+          src: ./instancie.j2 
+          dest: ./out-instancie.yaml
 
       - name: Creation du fichier Broker en XML
         ansible.builtin.template:
-          src: ./varloop-xml.j2 
-          dest: ./output.xml
+          src: ./broker.j2
+          dest: ./out-queue-broker.xml
+      
+      - name: Loop over var
+        ansible.builtin.debug:
+          msg: "{{ item.name }} - {{ item.id }}"
+        with_items: "{{ partitions }}"
 
-      # - name: Template XML2
-      #   vars_files:
-      #     - vars_partitions.yml  
-      #   ansible.builtin.template:
-      #     src: ./varloop-xml.j2 
-      #     dest: ./output.xml2
-    
+      - name: Loop over var for template
+        ansible.builtin.template:
+          src: ./var_queue-xml.j2 
+          dest: "./out-jboss-{{ item.id }}.xml"
+        with_items: "{{ partitions }}"

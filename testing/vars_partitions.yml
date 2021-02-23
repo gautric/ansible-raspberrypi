@@ -3,4 +3,4 @@ partitions:
   - name: Partition Thomas
     id: partition_THOMAS
   - name: Partition Marie
-    id: partition_Marie
+    id: partition_MARIE
