@@ -1,2 +1,9 @@
 [raspberrypi]
-192.168.1.162
+pihole.local
+rpbi-wifi.local
+
+[pihole]
+pihole.local
+
+[hotspot]
+rpbi-wifi.local

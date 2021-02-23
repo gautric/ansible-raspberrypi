@@ -1,6 +1,8 @@
 ---
 - hosts: hotspot
   remote_user: pi
+  vars_files:
+    - secret.yaml
   roles:
     - update
     - hotspot
