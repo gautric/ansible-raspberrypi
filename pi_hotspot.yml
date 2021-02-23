@@ -1,8 +1,9 @@
 ---
 - hosts: hotspot
   remote_user: pi
-  vars_files:
-    - secret.yaml
+  vars_prompt:
+    - name: "wpa_passphrase"
+      prompt: "WPA Passphrase"  
   roles:
     - update
     - hotspot
