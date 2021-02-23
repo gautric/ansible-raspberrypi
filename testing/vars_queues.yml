@@ -1,0 +1,13 @@
+---
+queues:
+  - name: workflow
+    physical: WORKFLOW
+
+  - name: sequence
+    physical: SEQUENCE
+
+  - name: async
+    physical: ASYNC
+
+  - name: timer
+    physical: TIMER

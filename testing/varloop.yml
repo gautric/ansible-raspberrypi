@@ -1,0 +1,29 @@
+---
+# https://www.arctiq.ca/our-blog/2017/2/16/ansible-jinja-warrior-loop-variable-scope/
+# ansible-playbook  varloop.yml ; cat output.txt
+
+  - name: Test template 
+    hosts: localhost
+    connection: local
+    vars_files:
+      - vars_partitions.yml 
+      - vars_queues.yml 
+    gather_facts: no
+    tasks:
+      - name: Creation du fichier Broker
+        ansible.builtin.template: 
+          src: ./varloop.j2 
+          dest: ./output.txt
+
+      - name: Creation du fichier Broker en XML
+        ansible.builtin.template:
+          src: ./varloop-xml.j2 
+          dest: ./output.xml
+
+      # - name: Template XML2
+      #   vars_files:
+      #     - vars_partitions.yml  
+      #   ansible.builtin.template:
+      #     src: ./varloop-xml.j2 
+      #     dest: ./output.xml2
+    

@@ -1,0 +1,13 @@
+// Made By ansible 
+
+
+{% for queue in queues %}
+// Creation de la queue  {{ queue.name }} 
+
+    - {{ queue.name }} 
+    {% for partition in partitions %}
+// Pour la partition {{ partition.name }}
+        -- JMS / {{ partition.id }} / {{ queue.physical }} 
+    {% endfor %}
+
+{% endfor %}

@@ -1,0 +1,6 @@
+{% for queue in queues %}
+    <!--  Creation de la queue  {{ queue.name }} -->
+    {% for partition in partitions %}
+    <queue name="{{ queue.name }}" jndi="JMS/{{ partition.id }}/{{ queue.physical }}"/>
+    {% endfor %}
+{% endfor %}
