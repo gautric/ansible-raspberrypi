@@ -5,10 +5,7 @@
 - name: upgrade
   apt: upgrade=yes
 
-- name: install list of packages
-  apt:
-    pkg:
-      - avahi-daemon
+- name: install Apt
+  ansible.builtin.apt:
+    name: "{{  packages  }}"
     state: present
-  notify:
-    - restart avahi-daemon
