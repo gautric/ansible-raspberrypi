@@ -25,7 +25,7 @@
           msg: "{{ item.name }} - {{ item.id }}"
         with_items: "{{ partitions }}"
 
-      - name: Loop over var for template
+      - name: Loop over each partition
         ansible.builtin.template:
           src: ./var_queue-xml.j2 
           dest: "./out-jboss-{{ item.id }}.xml"
