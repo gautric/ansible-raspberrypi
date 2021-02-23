@@ -8,3 +8,9 @@ ip_dhcp_low: 10.0.0.5
 ip_dhcp_high: 10.0.0.15
 
 ansible_become: yes
+
+packages:
+  - avahi-daemon
+  - avahi-autoipd
+  - avahi-ui-utils
+  - vim
