@@ -1,0 +1,6 @@
+---
+packages:
+  - avahi-daemon
+  - avahi-autoipd
+  - avahi-ui-utils
+  - vim

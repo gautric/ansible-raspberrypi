@@ -1,0 +1,10 @@
+---
+  
+interface: wlan0
+ip_server: 10.0.0.1
+netmask: 255.255.255.0
+network: 10.0.0.0
+gateway: 10.0.0.1
+broadcast: 10.0.0.255
+ip_dhcp_low: 10.0.0.5
+ip_dhcp_high: 10.0.0.15
