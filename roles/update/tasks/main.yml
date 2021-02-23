@@ -5,7 +5,12 @@
 - name: Upgrade Apt-Get
   apt: upgrade=yes  
 
-- name: Install Apt
+- name: install apt debug
+  ansible.builtin.debug:
+    msg: "apt-get install {{ item }}"
+  with_items: "{{ packages }}"
+  
+- name: install apt
   ansible.builtin.apt:
     name: "{{  packages  }}"
     state: present
