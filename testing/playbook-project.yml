@@ -1,6 +1,6 @@
 ---
 # https://www.arctiq.ca/our-blog/2017/2/16/ansible-jinja-warrior-loop-variable-scope/
-# ansible-playbook  varloop.yml ; cat output.txt
+# ansible-playbook  playbook-project.yml ; cat output.txt
 
   - name: Test template 
     hosts: localhost
