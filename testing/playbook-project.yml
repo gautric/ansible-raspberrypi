@@ -1,0 +1,32 @@
+---
+# https://www.arctiq.ca/our-blog/2017/2/16/ansible-jinja-warrior-loop-variable-scope/
+# ansible-playbook  playbook-project.yml ; cat output.txt
+
+  - name: Test template 
+    hosts: localhost
+    connection: local
+    vars_files:
+      - vars_partitions.yml 
+      - vars_queues.yml 
+    gather_facts: yes
+    tasks:
+      - name: Creation du fichier Instancié
+        ansible.builtin.template: 
+          src: ./instancie.j2 
+          dest: ./out-instancie.yaml
+
+      - name: Creation du fichier Broker en XML
+        ansible.builtin.template:
+          src: ./broker.j2
+          dest: ./out-queue-broker.xml
+      
+      - name: Loop over var
+        ansible.builtin.debug:
+          msg: "{{ item.name }} - {{ item.id }}"
+        with_items: "{{ partitions }}"
+
+      - name: Loop over each partition
+        ansible.builtin.template:
+          src: ./var_queue-xml.j2 
+          dest: "./out-jboss-{{ item.id }}.xml"
+        with_items: "{{ partitions }}"

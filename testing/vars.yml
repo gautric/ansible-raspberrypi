@@ -1,0 +1,27 @@
+---
+
+queues:
+  - name: workflow
+    physical: WORKFLOW
+
+  - name: task
+    physical: TASK
+
+  - name: async
+    physical: ASYNC
+
+  - name: timer
+    physical: TIMER
+
+
+partitions:
+  - name: Partition Arpege
+    id: partition_ARPEGE
+  - name: Partition Meteor
+    id: partition_Meteor
+
+kjar:
+  - name: Partition Arpege
+    id: partition_ARPEGE
+  - name: Partition Meteor
+    id: partition_Meteor

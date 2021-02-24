@@ -1,20 +1,18 @@
 # How to use it
 
-## to update Raspberry Pi
+## To update Raspberry Pi
 
 ```
-ansible-playbook pi_update.yml --inventory-file=./hosts -u pi
+ansible-playbook -i hosts pi.yml
 ```
 
-## to configure Hotspot Raspberry Pi
+## To configure Hotspot Raspberry Pi
 
-SSID and PASSPHRASE must be change with our securities rules
+Create a secret.yaml file with two variables :
+
+* ssid: RASPBERRY_PI_HOTSPOT
+* wpa_passphrase: NOT_VALID_PASSWORD_TO_CHANGE
 
 ```
-export SSID=RASPBERRY_WIFI
-export PASSPHRASE=4slqvCIEbvhNd5dn
-
-ansible-playbook pi_wifi.yml --inventory-file=./hosts \
-                 -u pi  -v --diff \
-                 -e "ssid=${SSID} wpa_passphrase=${PASSPHRASE}"
+ansible-playbook -i hosts hotspot.yml
 ```

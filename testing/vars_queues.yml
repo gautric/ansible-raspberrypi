@@ -1,0 +1,18 @@
+---
+queues:
+  - name: workflow
+    physical: WORKFLOW
+    enable: "true"
+
+  - name: sequence
+    physical: SEQUENCE
+    enable: "false"
+
+  - name: async
+    physical: ASYNC
+    enable: "true"
+
+  - name: timer
+    physical: TIMER
+    enable: "true"
+

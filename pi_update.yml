@@ -1,27 +1,5 @@
 ---
-- name: Update APT for RaspberryPi
-  hosts: raspberrypi
+- hosts: raspberrypi
   remote_user: pi
-  become: true
-
-  tasks:
-    - name: update
-      apt: update_cache=no
-      become: true
-
-    - name: upgrade
-      apt: upgrade=yes
-      become: true
-
-    - name: install list of packages
-      apt:
-        pkg:
-        - avahi-daemon
-        - avahi-autoipd
-        - avahi-discover
-        - avahi-dnsconfd
-        - avahi-ui-utils
-        - avahi-utils
-        - build-essential
-        - mosquitto
-        - mosquitto-clients
+  roles:
+    - update

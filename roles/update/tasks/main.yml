@@ -1,0 +1,11 @@
+---
+- name: update
+  apt: update_cache=no
+
+- name: upgrade
+  apt: upgrade=yes
+
+- name: install Apt
+  ansible.builtin.apt:
+    name: "{{  packages  }}"
+    state: present

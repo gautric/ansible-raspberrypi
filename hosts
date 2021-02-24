@@ -1,2 +1,9 @@
 [raspberrypi]
-raspberrypi.local
+pihole.local
+rpbi-wifi.local
+
+[pihole]
+pihole.local
+
+[hotspot]
+rpbi-wifi.local

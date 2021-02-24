@@ -1,0 +1,7 @@
+// for server {{ ansible_nodename }}
+
+{{ queues|map(attribute='name')|join(', ') }}
+
+{% for queue in queues %}
+    <queue name="{{ queue.name }}" jndi="JMS/{{ item.id }}/{{ queue.physical }}" enable="{{queue.enable}}" />
+{% endfor %}
