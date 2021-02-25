@@ -1,11 +1,5 @@
 ---
   
-- name: hostapd install
-  apt: name=hostapd state=present force=yes
-
-- name: dnsmasq install
-  apt: name=dnsmasq state=present force=yes
-
 - name: dnsmasq.conf
   template:
     src: dnsmasq.conf.j2

@@ -1,0 +1,7 @@
+---
+dependencies:
+  - role: update
+    vars:
+    packages:
+      - dnsmasq
+      - hostapd
