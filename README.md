@@ -8,11 +8,9 @@ ansible-playbook -i hosts pi.yml
 
 ## To configure Hotspot Raspberry Pi
 
-Create a secret.yaml file with two variables :
-
-* ssid: RASPBERRY_PI_HOTSPOT
-* wpa_passphrase: NOT_VALID_PASSWORD_TO_CHANGE
+Change the ssid into the correct hosts_var.
+The _wpa_passphrase_ will be prompted. 
 
 ```
-ansible-playbook -i hosts hotspot.yml
+ansible-playbook pi_hotspot.yml -i hosts
 ```
