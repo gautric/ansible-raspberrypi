@@ -1,5 +1,7 @@
 ---
-  
+ssid: SSID_NAME_CHANGE_IT
+wpa_passphrase: PASSWORD_CHANGE_IT
+
 interface: wlan0
 ip_server: 10.0.0.1
 netmask: 255.255.255.0
