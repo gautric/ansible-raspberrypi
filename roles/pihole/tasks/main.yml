@@ -1,3 +1,10 @@
 ---
-- name: Update PiHole
+
+- name: check if PiHole is installed
+  ansible.builtin.stat:
+    path: /opt/pihole
+  register: pihole_installed
+
+- name: update PiHole
   ansible.builtin.shell: pihole -up
+  when: pihole_installed.stat.isdir is defined
