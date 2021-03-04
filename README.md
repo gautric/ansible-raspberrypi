@@ -1,16 +1,20 @@
 # How to use it
 
+## Push Local SSH key
+
+The _pi_ user password will be prompted. 
+
+    ansible-playbook -i hosts pi_ssh.yml
+
 ## To update Raspberry Pi
 
-```
-ansible-playbook -i hosts pi.yml
-```
+    ansible-playbook -i hosts pi.yml
 
 ## To configure Hotspot Raspberry Pi
 
 Change the ssid into the correct hosts_var.
 The _wpa_passphrase_ will be prompted. 
 
-```
-ansible-playbook pi_hotspot.yml -i hosts
-```
+
+    ansible-playbook -i hosts pi_hotspot.yml 
+
