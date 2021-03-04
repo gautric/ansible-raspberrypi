@@ -6,7 +6,7 @@
 
 ## To update Raspberry Pi
 
-    ansible-playbook -i hosts pi.yml
+    ansible-playbook -i hosts pi_update.yml
 
 ## To configure Hotspot Raspberry Pi
 
