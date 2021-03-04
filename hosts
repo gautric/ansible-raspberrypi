@@ -1,6 +1,7 @@
 [raspberrypi]
 pihole.local
 rpbi-wifi.local
+rbpiv2-1.local
 
 [pihole]
 pihole.local
