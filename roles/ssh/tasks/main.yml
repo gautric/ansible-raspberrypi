@@ -1,0 +1,7 @@
+---
+#https://docs.ansible.com/ansible/latest/collections/ansible/posix/authorized_key_module.html
+- name: set authorized_key for ssh
+  ansible.posix.authorized_key:
+    user: pi
+    state: present
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
