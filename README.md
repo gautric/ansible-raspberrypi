@@ -2,9 +2,7 @@
 
 ## Push Local SSH key
 
-The _pi_ user password will be prompted. 
-
-    ansible-playbook -i hosts pi_ssh.yml
+    ansible-playbook -i hosts pi_ssh.yml --ask-pass
 
 ## To update Raspberry Pi
 

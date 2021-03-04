@@ -1,10 +1,5 @@
 ---
 - hosts: raspberrypi
   remote_user: pi
-  vars:
-    ansible_connection: ssh
-  vars_prompt:
-    - name: "ansible_ssh_pass"
-      prompt: "SSH Password for PI"
   roles:
     - ssh
