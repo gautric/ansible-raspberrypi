@@ -1,0 +1,3 @@
+---
+ansible_rsa_file: ansible_rsa.pub
+ansible_rsa: "{{ lookup('file', ansible_rsa_file, errors='ignore') }}"

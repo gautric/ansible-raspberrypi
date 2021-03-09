@@ -5,3 +5,10 @@
     user: pi
     state: present
     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: set authorized_key for ansible_rsa key
+  ansible.posix.authorized_key:
+    user: pi
+    state: present
+    key: '{{ ansible_rsa }}'
+  when: ansible_rsa != ""
