@@ -1,10 +1,47 @@
 ---
 
-- name: check if PiHole is installed
+# Inspiration from https://github.com/motdotla/ansible-pi
+
+- name: Check if PiHole is installed
   ansible.builtin.stat:
-    path: /opt/pihole
+    path: '{{ pihole_install_dir }}'
   register: pihole_installed
 
-- name: update PiHole
+- name: Install PiHole
+  get_url:
+    url: https://install.pi-hole.net
+    dest: '{{ pihole_shell }}'
+    mode: '0555'
+  when: pihole_installed.stat.isdir is not defined
+
+- name: Create pihole configuration directory
+  become: True
+  file:
+    name="{{ pihole_config_dir }}"
+    state=directory
+    owner="{{ pihole_usr }}"
+    group="{{ pihole_grp }}"
+    mode=0755
+  when: pihole_installed.stat.isdir is not defined
+
+- name: Create pihole configuration
+  become: True
+  template:
+    src="setupVars.conf.j2"
+    dest="{{ pihole_config_dir }}/setupVars.conf"
+    owner=root
+    group=root
+    mode=0644
+  when: pihole_installed.stat.isdir is not defined
+
+- name: Execute PiHole Install
+  ansible.builtin.shell: '{{ pihole_shell }} --unattended'
+  when: pihole_installed.stat.isdir is not defined
+
+- name: Update Password
+  ansible.builtin.shell: 'pihole -a -p {{ pihole_password }}'
+  when: pihole_installed.stat.isdir is not defined
+
+- name: Update PiHole
   ansible.builtin.shell: pihole -up
   when: pihole_installed.stat.isdir is defined

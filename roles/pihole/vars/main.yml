@@ -1,0 +1,23 @@
+---
+
+pihole_usr: "pihole"
+pihole_grp: "pihole"
+
+pihole_install_dir: /opt/pihole
+pihole_config_dir: /etc/pihole
+
+pihole_shell: /tmp/pihole.sh 
+pihole_password: 3513cvUh
+
+#fspath_pihole_src: "/etc/.pihole"
+
+
+network_interface: eth0
+ipv4_static: True
+ipv4_address: "{{ hostvars[inventory_hostname]['ansible_' + network_interface]['ipv4']['address'] }}"
+# per default just use the first available ipv6 address on the interface
+ipv6: True
+ipv6_address: "{{ hostvars[inventory_hostname]['ansible_' + network_interface]['ipv6'][0]['address'] }}"
+dns_servers:
+  - "8.8.8.8"
+  - "8.8.4.4"

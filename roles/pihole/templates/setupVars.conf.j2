@@ -1,0 +1,18 @@
+# {{ ansible_managed }} {{ ansible_date_time.iso8601 }}
+
+configDirectory={{ pihole_config_dir }}
+installDirectory={{ pihole_install_dir }}
+
+BLOCKING_ENABLED=true
+PIHOLE_INTERFACE={{ network_interface }}
+IPV4_ADDRESS={{ ipv4_address }}/24
+IPV6_ADDRESS={{ ipv6_address }}
+PIHOLE_DNS_1={{ dns_servers[0] }}
+PIHOLE_DNS_2={{ dns_servers[1] }}
+QUERY_LOGGING=true
+INSTALL_WEB=true
+INSTALL_WEB_SERVER=true
+INSTALL_WEB_INTERFACE=true
+LIGHTTPD_ENABLED=true
+CACHE_SIZE=10000
+#WEBPASSWORD=384fe90c64c6b82353ab89ed57d0ce0b98952887bc693bfa69cb86a673920782
