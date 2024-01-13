@@ -1,7 +1,14 @@
 ---
 packages:
   - avahi-daemon
+  - avahi-dnsconfd
   - avahi-autoipd
   - avahi-ui-utils
   - vim
   - samba
+
+services:
+  - smbd
+  - nmbd
+  - avahi-daemon
+  - avahi-dnsconfd

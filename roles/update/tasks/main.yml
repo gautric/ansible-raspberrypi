@@ -19,7 +19,7 @@
     name: "{{ packages }}"
     state: present
 
-- name: Create SMB configuration
+- name: Copy SMB configuration
   become: True
   template:
     src="smb.conf.j2"
@@ -28,12 +28,17 @@
     group=root
     mode=0644
 
-- name: Enable service SMB, and not touch the state
+- name: "Enable service {{ item }}"
   ansible.builtin.service:
-    name: smbd
+    name: "{{ item }}"
     enabled: yes
+  with_items: "{{ services }}"
 
-- name: Enable service SMB, and not touch the state
-  ansible.builtin.service:
-    name: nmbd
-    enabled: yes
+- name: Create SSH / Avahi configuration
+  become: True
+  template:
+    src="ssh.service.j2"
+    dest="/etc/avahi/services/ssh.service"
+    owner=root
+    group=root
+    mode=0644
