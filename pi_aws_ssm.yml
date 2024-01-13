@@ -1,0 +1,5 @@
+---
+- hosts: ssm_hosts
+  remote_user: pi
+  roles:
+    - aws_ssm

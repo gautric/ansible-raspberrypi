@@ -1,0 +1,78 @@
+---
+###
+# RUN only once on local
+###
+- name: Run whoami without become.
+  command: whoami
+  changed_when: false
+  register: whoami
+  connection: local
+  delegate_to: localhost
+  become: false
+  become_user: "{{ansible_user_id}}"
+  become_method: runas
+  run_once: true
+
+- name: "Create AWS SSM Activation"
+  ansible.builtin.command: "aws ssm create-activation --iam-role {{aws_iam_role}} --registration-limit {{ ansible_play_hosts | length }}  --region {{aws_region}} --tags \"Key=os,Value=raspbian\" "
+  register: aws_ssm_activation
+  connection: local
+  delegate_to: localhost
+  become: false
+  become_user: "{{ansible_user_id}}"
+  become_method: runas
+  run_once: true
+
+- name: Convert output to fact
+  set_fact:
+    aws_ssm_activation_var: "{{ aws_ssm_activation.stdout | from_json }}"
+  connection: local
+  delegate_to: localhost
+  become: false
+  become_user: "{{ansible_user_id}}"
+  become_method: runas
+  run_once: true
+
+###
+# RUN Remotely
+###
+- name: Download Amazon SSM Agent
+  ansible.builtin.get_url:
+    url: "{{aws_ssm_deb_url}}"
+    dest: "{{aws_ssm_deb_file}}"
+    mode: '0444'
+
+- name: Install a Amazon SSM Agent .deb package
+  ansible.builtin.apt:
+    deb: "{{aws_ssm_deb_file}}"
+
+- name: "Stop Amazon SSM Agent"
+  ansible.builtin.service:
+    name: amazon-ssm-agent 
+    state: stopped
+
+- name: "Register Amazon SSM Agent"
+  ansible.builtin.shell: "amazon-ssm-agent -register -y -id {{aws_ssm_activation_var.ActivationId}} -code {{aws_ssm_activation_var.ActivationCode}} -region {{aws_region}}"
+  register: aws_ssm_registration
+
+- name: Retrieve SSM Instance Id from registration output
+  set_fact:
+    aws_ssm_instance_id: "{{ aws_ssm_registration.stdout | regex_search('(\\w+-\\w+)$', multiline=True, ignorecase=True) }}"
+
+- name: "Start Amazon SSM Agent"
+  ansible.builtin.service:
+    name: amazon-ssm-agent 
+    state: started
+
+- name: "Enable Amazon SSM Agent"
+  ansible.builtin.service:
+    name: amazon-ssm-agent 
+    enabled: yes
+
+- name: Print SSM Instance Id 
+  ansible.builtin.debug:
+    msg: "{{ aws_ssm_instance_id }}"
+
+- name: Print SSH Instance Id command
+  ansible.builtin.debug:
+    msg: "ssh pi@{{ aws_ssm_instance_id }}"

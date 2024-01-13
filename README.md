@@ -12,6 +12,10 @@
 
     ansible-playbook -i hosts pi_update.yml
 
+## Register Raspberry Pi into AWS SSM
+
+    ansible-playbook -i hosts pi_aws_ssm.yml
+
 ## To configure Hotspot Raspberry Pi
 
 Change the ssid into the correct hosts_var.

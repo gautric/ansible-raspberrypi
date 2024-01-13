@@ -1,10 +1,14 @@
-[raspberrypi]
-pihole.local
-rpbi-wifi.local
-rbpiv2-1.local
+[raspberrypi_hosts]
+raspberrypi.local
+raspberrypi5.local
+raspberrypi-zero-wifi.local
 
-[pihole]
-pihole.local
+[http_hosts]
+raspberrypi.local
 
 [hotspot]
 rpbi-wifi.local
+
+[ssm_hosts]
+raspberrypi5.local
+raspberrypi-zero-wifi.local

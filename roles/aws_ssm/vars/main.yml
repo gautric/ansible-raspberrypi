@@ -1,0 +1,6 @@
+---
+aws_ssm_deb_url: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_arm/amazon-ssm-agent.deb
+aws_ssm_deb_file: /tmp/amazon-ssm-agent.deb
+aws_region: eu-west-1
+aws_iam_role: service-role/AmazonEC2RunCommandRoleForManagedInstances
+aws_registration_limit: 5
