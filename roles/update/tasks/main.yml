@@ -18,3 +18,22 @@
   ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
+
+- name: Create SMB configuration
+  become: True
+  template:
+    src="smb.conf.j2"
+    dest="/etc/samba/smb.conf"
+    owner=root
+    group=root
+    mode=0644
+
+- name: Enable service SMB, and not touch the state
+  ansible.builtin.service:
+    name: smbd
+    enabled: yes
+
+- name: Enable service SMB, and not touch the state
+  ansible.builtin.service:
+    name: nmbd
+    enabled: yes

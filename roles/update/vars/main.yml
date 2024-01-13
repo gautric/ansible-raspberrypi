@@ -4,3 +4,4 @@ packages:
   - avahi-autoipd
   - avahi-ui-utils
   - vim
+  - samba
