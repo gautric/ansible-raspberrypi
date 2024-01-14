@@ -1,0 +1,17 @@
+---
+
+- name: "Retrieve Public Key from SSH Agent"
+  ansible.builtin.command: "ssh-add -L"
+  register: public_key_list
+  connection: local
+  delegate_to: localhost
+  become: false
+  become_user: "{{ansible_user_id}}"
+  become_method: runas
+  run_once: true
+
+- name: Set authorized keys
+  ansible.posix.authorized_key:
+    user: pi
+    state: present
+    key: "{{ public_key_list.stdout }}"
