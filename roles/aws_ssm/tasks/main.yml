@@ -49,6 +49,15 @@
   set_fact:
     aws_ssm_instance_id: "{{ aws_ssm_registration.stdout | regex_search('(\\w+-\\w+)$', multiline=True, ignorecase=True) }}"
 
+- name: Create Systemd service file
+  become: True
+  template:
+    src="amazon-ssm-agent.service.j2"
+    dest="/etc/systemd/system/amazon-ssm-agent.service"
+    owner=root
+    group=root
+    mode=0644
+
 - name: "Start Amazon SSM Agent"
   ansible.builtin.service:
     name: amazon-ssm-agent 
