@@ -12,3 +12,9 @@ services:
   - nmbd
   - avahi-daemon
   - avahi-dnsconfd
+
+pi_samba_password : AGoodPassword
+
+wifi_config:
+  - name: SSID
+    passwd: AnotherGoodPassword

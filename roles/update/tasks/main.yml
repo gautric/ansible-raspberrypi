@@ -8,11 +8,6 @@
   apt: upgrade=yes  
   register: apt_get_upgrade
   when: apt_get_upgrade is undefined
-
-- name: install apt debug
-  ansible.builtin.debug:
-    msg: "apt-get install {{ item }}"
-  with_items: "{{ packages }}"
   
 - name: install apt {{ packages }}
   ansible.builtin.apt:
@@ -28,6 +23,20 @@
     group=root
     mode=0644
 
+# https://gist.github.com/cmsj/5557c45ca5fa4779e81394105be204e1
+
+- name: Fetch current smbpasswd users
+  command: /usr/bin/pdbedit -L
+  register: samba_users
+
+- name: Set Samba password for pi
+  command:
+    cmd: /usr/bin/smbpasswd -s -a pi
+    stdin: |
+      {{ pi_samba_password }}
+      {{ pi_samba_password }}
+#    when: samba_users.stdout.find('pi') == -1
+
 - name: "Enable service {{ item }}"
   ansible.builtin.service:
     name: "{{ item }}"
@@ -42,3 +51,30 @@
     owner=root
     group=root
     mode=0644
+
+- name: Create SMB / Avahi configuration
+  become: True
+  template:
+    src="smb.service.j2"
+    dest="/etc/avahi/services/smb.service"
+    owner=root
+    group=root
+    mode=0644
+
+# https://docs.redhat.com/fr/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/proc_connecting-to-a-wifi-network-by-using-nmcli_assembly_managing-wifi-connections#proc_connecting-to-a-wifi-network-by-using-nmcli_assembly_managing-wifi-connections
+# https://docs.ansible.com/ansible/latest/collections/community/general/nmcli_module.html
+
+- name: Create the wifi connection
+  community.general.nmcli:
+    type: wifi
+    conn_name: '{{ item.name }}'
+    ifname: wlan0
+    ssid: '{{ item.name }}'
+    wifi_sec:
+      key-mgmt: wpa-psk
+      psk: '{{ item.passwd }}'
+    autoconnect: true
+    state: present
+  with_items:
+    - '{{ wifi_config }}'
+
