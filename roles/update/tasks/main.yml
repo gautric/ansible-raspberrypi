@@ -78,3 +78,13 @@
   with_items:
     - '{{ wifi_config }}'
 
+# https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
+
+- name: "Copy certificate {{ item }}"
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/usr/local/share/ca-certificates/{{ item }}"
+  with_items: "{{ certificates }}"
+
+- name: Update Cert index
+  shell: /usr/sbin/update-ca-certificates
