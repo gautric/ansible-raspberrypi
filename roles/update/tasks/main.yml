@@ -43,6 +43,8 @@
     enabled: yes
   with_items: "{{ services }}"
 
+# Wifi
+
 - name: Create SSH / Avahi configuration
   become: True
   template:
@@ -61,8 +63,9 @@
     group=root
     mode=0644
 
-# https://docs.redhat.com/fr/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/proc_connecting-to-a-wifi-network-by-using-nmcli_assembly_managing-wifi-connections#proc_connecting-to-a-wifi-network-by-using-nmcli_assembly_managing-wifi-connections
-# https://docs.ansible.com/ansible/latest/collections/community/general/nmcli_module.html
+# Wifi
+## https://docs.redhat.com/fr/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/proc_connecting-to-a-wifi-network-by-using-nmcli_assembly_managing-wifi-connections#proc_connecting-to-a-wifi-network-by-using-nmcli_assembly_managing-wifi-connections
+## https://docs.ansible.com/ansible/latest/collections/community/general/nmcli_module.html
 
 - name: Create the wifi connection
   community.general.nmcli:
@@ -78,7 +81,9 @@
   with_items:
     - '{{ wifi_config }}'
 
-# https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
+
+# Certificates
+## https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
 
 - name: "Copy certificate {{ item }}"
   ansible.builtin.copy:
