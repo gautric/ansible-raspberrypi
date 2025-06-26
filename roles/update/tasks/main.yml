@@ -1,20 +1,24 @@
 ---
 - name: update apt-get
-  apt: update_cache=no
+  ansible.builtin.apt:
+    update_cache: no
+    force_apt_get: yes
   register: apt_get_update
   when: apt_get_update is undefined
 
 - name: upgrade apt-get
-  apt: upgrade=yes  
+  ansible.builtin.apt:
+    upgrade: yes  
+    force_apt_get: yes
   register: apt_get_upgrade
   when: apt_get_upgrade is undefined
-  
+
 - name: install apt {{ packages }}
   ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
 
-- name: Copy SMB configuration
+- name: SMB configuration
   become: True
   template:
     src="smb.conf.j2"
@@ -81,7 +85,6 @@
   with_items:
     - '{{ wifi_config }}'
 
-
 # Certificates
 ## https://blog.confirm.ch/adding-a-new-trusted-certificate-authority/
 
@@ -91,5 +94,17 @@
     dest: "/usr/local/share/ca-certificates/{{ item }}"
   with_items: "{{ certificates }}"
 
+- name: Remove file
+  ansible.builtin.file:
+    path: "/etc/ssl/certs/AUTRIC.net.pem"
+    state: absent
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote
+  ansible.builtin.shell: cat /usr/local/share/ca-certificates/{{ item }} >> /etc/ssl/certs/AUTRIC.net.pem
+  with_items: "{{ certificates }}"
+
 - name: Update Cert index
   shell: /usr/sbin/update-ca-certificates
+
+# - name: Check Certificates
+#   shell: awk -v cmd='openssl x509 -noout -subject' '/BEGIN/{close(cmd)};{print | cmd}' < /etc/ssl/certs/ca-certificates.crt | grep -i subject
