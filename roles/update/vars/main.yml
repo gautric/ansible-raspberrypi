@@ -6,15 +6,36 @@ packages:
   - avahi-ui-utils
   - vim
   - samba
+  - nginx
+  - python3-pip
+  - python3-venv
+  - libaugeas0
+  - mosquitto
+  - mosquitto-clients
+  - python3-paho-mqtt
+  - libavahi-compat-libdnssd1
+  - libavahi-compat-libdnssd-dev 
+  - expect
+  - jq
+  - ufw
+
 
 services:
   - smbd
   - nmbd
   - avahi-daemon
   - avahi-dnsconfd
+  - mosquitto
+  - nginx
 
-pi_samba_password : AGoodPassword
+pi_samba_password : XXXXX
 
 wifi_config:
-  - name: SSID
-    passwd: AnotherGoodPassword
+  - name: GL-XXXXXX
+    passwd: XXXXXX
+
+certificates:
+  - ROOT.crt
+  - SIGNING.crt
+
+
